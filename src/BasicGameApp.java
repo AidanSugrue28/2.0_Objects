@@ -70,7 +70,7 @@ public class BasicGameApp implements Runnable {
         astro2 = new Astronaut(500,500);
         astro2.dx = -5;
         astro2.height = 50;
-        astro2.width = 150;
+        astro2.width = 140;
 
 
 	}// BasicGameApp()
