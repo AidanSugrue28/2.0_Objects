@@ -31,7 +31,7 @@ public class Astronaut {
         dx =5;
         dy =5;
         width = 200;
-        height = 100;
+        height = 200;
         isAlive = true;
  
     }// constructor
@@ -45,10 +45,10 @@ public class Astronaut {
             dy = -dy;
         }
 
-        if(xpos > 880) {
+        if(xpos > 1000-width) {
             dx = -dx;
         }
-        if(ypos > 650) {
+        if(ypos > 700-height) {
             dy = -dy;
         }
 
