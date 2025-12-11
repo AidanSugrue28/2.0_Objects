@@ -46,6 +46,7 @@ public class BasicGameApp implements Runnable {
 	private Astronaut astro;
     public Astronaut astro2;
     public Asteriod asteriod1;
+    public Asteriod asteriod2;
 
 
    // Main method definition
@@ -88,6 +89,7 @@ public class BasicGameApp implements Runnable {
         astro.dx = 5;
         astro2 = new Astronaut(randx,randy);
         asteriod1 = new Asteriod(randy,randx);
+        asteriod2 = new Asteriod(100,200);
         astro2.dx = -5;
         astro2.height = 150;
         astro2.width = 150;
@@ -121,6 +123,7 @@ public class BasicGameApp implements Runnable {
 		astro.move();
         astro2.move();
         asteriod1.move();
+        asteriod2.move();
 
 	}
 	
@@ -174,6 +177,7 @@ public class BasicGameApp implements Runnable {
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
         g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
         g.drawImage(asteriodPic, asteriod1.xpos, asteriod1.ypos, asteriod1.width, asteriod1.height, null);
+        g.drawImage(asteriodPic, asteriod2.xpos, asteriod2.ypos, asteriod2.width, asteriod2.height, null);
 
 
         g.dispose();
