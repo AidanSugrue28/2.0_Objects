@@ -30,8 +30,8 @@ public class Astronaut {
         ypos = pYpos;
         dx =5;
         dy =5;
-        width = 200;
-        height = 200;
+        width = 100;
+        height = 100;
         isAlive = true;
  
     }// constructor
