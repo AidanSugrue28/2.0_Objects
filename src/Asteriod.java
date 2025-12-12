@@ -27,7 +27,7 @@ public class Asteriod {
         xpos = pXpos;
         ypos = pYpos;
         dx =-10;
-        dy =-10;
+        dy =7;
         width = 150;
         height = 150;
         isAlive = true;

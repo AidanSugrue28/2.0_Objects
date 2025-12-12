@@ -80,6 +80,7 @@ public class BasicGameApp implements Runnable {
 
         int randy = (int)(Math.random()*700) + 1;
         //range 1-700
+
        
       //variable and objects
       //create (construct) the objects needed for the game and load up 
@@ -132,15 +133,23 @@ public class BasicGameApp implements Runnable {
 
         //if the astros crash into each other
         if(astro.hitbox.intersects(astro2.hitbox)){
-            System.out.println("CRASH!");
+            System.out.println("ASTRO CRASH!");
             astro.dx = -astro.dx;
             astro2.dx = -astro2.dx;
             astro.dy = -astro.dy;
             astro2.dy = -astro2.dy;
 
         }
+        if (asteriod1.hitbox.intersects(asteriod2.hitbox)){
+            System.out.println("ASTERIOD CRASH!" );
+            asteriod1.dx = -asteriod1.dx;
+            asteriod2.dx = -asteriod2.dx;
+            asteriod1.dy = -asteriod1.dy;
+            asteriod2.dy = -asteriod2.dy;
+        }
 
     }
+
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
