@@ -12,7 +12,8 @@ public class Asteriod {
     public int width;
     public int height;
     public boolean isAlive;
-    public Rectangle hitbox;      //a boolean to denote if the hero is alive or dead.
+    public Rectangle hitbox;
+    public boolean isCrashing;                 //a boolean to denote if the hero is alive or dead.
 
 
     // METHOD DEFINITION SECTION
@@ -32,6 +33,8 @@ public class Asteriod {
         height = 150;
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
+        isCrashing = false;
+
 
     }// constructor
 

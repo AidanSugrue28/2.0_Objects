@@ -40,6 +40,7 @@ public class BasicGameApp implements Runnable {
 	public BufferStrategy bufferStrategy;
 	public Image astroPic;
     public Image asteriodPic;
+    public Image backgroundPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -64,7 +65,6 @@ public class BasicGameApp implements Runnable {
 	public BasicGameApp() {
       
       setUpGraphics();
-
       //randomness
         // range is 0-9
         int randx = (int)(Math.random()*10);
@@ -85,7 +85,8 @@ public class BasicGameApp implements Runnable {
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png");
-       asteriodPic = Toolkit.getDefaultToolkit().getImage("Asteroid_Vesta-1.jpeg");//load the picture
+        asteriodPic = Toolkit.getDefaultToolkit().getImage("Asteroid_Vesta-1.jpeg");
+        backgroundPic = Toolkit.getDefaultToolkit().getImage("Stars.jpg");//load the picture
 		astro = new Astronaut(10,100);
         astro.dx = 5;
         astro2 = new Astronaut(randx,randy);
@@ -94,9 +95,11 @@ public class BasicGameApp implements Runnable {
         astro2.dx = -5;
         astro2.height = 150;
         astro2.width = 150;
+        asteriod1.dx = -asteriod1.dx;
 
 
-	}// BasicGameApp()
+
+    }// BasicGameApp()
 
    
 //*******************************************************************************
@@ -140,12 +143,15 @@ public class BasicGameApp implements Runnable {
             astro2.dy = -astro2.dy;
 
         }
-        if (asteriod1.hitbox.intersects(asteriod2.hitbox)){
+        if (asteriod1.hitbox.intersects(asteriod2.hitbox) && asteriod2.isCrashing == false){
             System.out.println("ASTERIOD CRASH!" );
-            asteriod1.dx = -asteriod1.dx;
-            asteriod2.dx = -asteriod2.dx;
-            asteriod1.dy = -asteriod1.dy;
-            asteriod2.dy = -asteriod2.dy;
+            asteriod2.height = asteriod2.height +100;
+            asteriod2.isCrashing = true;
+
+        }
+        if(!asteriod1.hitbox.intersects(asteriod2.hitbox)){
+            asteriod2.isCrashing = false;
+
         }
 
     }
@@ -196,8 +202,10 @@ public class BasicGameApp implements Runnable {
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.drawImage(backgroundPic, 0, 0, WIDTH,HEIGHT , null);
 
-      //draw the image of the astronaut
+
+        //draw the image of the astronaut
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
         g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);
         g.drawImage(asteriodPic, asteriod1.xpos, asteriod1.ypos, asteriod1.width, asteriod1.height, null);
