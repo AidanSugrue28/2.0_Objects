@@ -1,91 +1,62 @@
 import java.awt.*;
 
-/**
- * Created by chales on 11/6/2017.
- */
 public class Astronaut {
 
-    //VARIABLE DECLARATION SECTION
-    //Here's where you state which variables you are going to use.
-    public String name;                //holds the name of the hero
-    public int xpos;                //the x position
-    public int ypos;                //the y position
-    public int dx;                    //the speed of the hero in the x direction
-    public int dy;                    //the speed of the hero in the y direction
+    public int xpos;
+    public int ypos;
+    public int dx;
+    public int dy;
     public int width;
     public int height;
-    public boolean isAlive;
     public Rectangle hitbox;
-    public boolean isNorth;  //a boolean to denote if the hero is alive or dead.
+
+    // movement flags
+    public boolean isNorth;
     public boolean isSouth;
     public boolean isEast;
-    public boolean isWest; //a boolean to denote if the hero is alive or dead.
+    public boolean isWest;
 
-
-    // METHOD DEFINITION SECTION
-
-    // Constructor Definition
-    // A constructor builds the object when called and sets variable values.
-
-
-    //This is a SECOND constructor that takes 3 parameters.  This allows us to specify the hero's name and position when we build it.
-    // if you put in a String, an int and an int the program will use this constructor instead of the one above.
     public Astronaut(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =5;
-        dy =5;
         width = 100;
         height = 100;
-        isAlive = true;
+        dx = 0;
+        dy = 0;
         hitbox = new Rectangle(xpos, ypos, width, height);
+    }
 
-
-    }// constructor
-
-    //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
 
-        if(isNorth == true && isSouth == true){
-            dy  = -2;
-        }
-        if(isNorth == false && isSouth == false){
+        int speed = 5;
+
+        // vertical movement
+        if (isNorth && !isSouth) {
+            dy = -speed;
+        } else if (isSouth && !isNorth) {
+            dy = speed;
+        } else {
             dy = 0;
         }
-        if(isEast == true && isWest == true){
-            dx = -2;
-        }
-        if(isEast == false && isWest == false){
+
+        // horizontal movement
+        if (isEast && !isWest) {
+            dx = speed;
+        } else if (isWest && !isEast) {
+            dx = -speed;
+        } else {
             dx = 0;
         }
 
+        xpos += dx;
+        ypos += dy;
 
+        // screen boundaries
+        if (xpos < 0) xpos = 0;
+        if (ypos < 0) ypos = 0;
+        if (xpos > 1000 - width) xpos = 1000 - width;
+        if (ypos > 700 - height) ypos = 700 - height;
 
-        if(xpos < 0) { //bounce off left wall
-            dx = -dx;
-        }
-        if(ypos < 0) {
-            dy = -dy;
-        }
-
-        if(xpos > 1000-width) {
-            dx = -dx;
-        }
-        if(ypos > 700-height) {
-            dy = -dy;
-        }
-
-            xpos = xpos + dx;
-            ypos = ypos + dy;
         hitbox = new Rectangle(xpos, ypos, width, height);
-
-
-
     }
 }
-
-
-
-
-
-
