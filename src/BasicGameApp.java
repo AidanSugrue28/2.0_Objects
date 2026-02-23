@@ -191,6 +191,8 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             startGame = true;
 
         }
+        astro.xpos = e.getX() - astro.width / 2;
+        astro.ypos = e.getY() - astro.height / 2;
 
     }
 
