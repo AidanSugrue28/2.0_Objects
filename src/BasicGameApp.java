@@ -27,6 +27,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Asteriod asteriod2;
     public Rectangle startHitbox;
     public boolean startGame;
+    public Asteriod[] asteriods;
 
     private Astronaut astro;
 
@@ -55,9 +56,14 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         asteriod1.dx = -asteriod1.dx;
 
 
-        startHitbox = new Rectangle(100,100,100,100);
-    }
+        startHitbox = new Rectangle(100, 100, 100, 100);
 
+        asteriods = new Asteriod[5];
+
+        for (int i = 0; i < asteriods.length; i++) {
+            asteriods[i] = new Asteriod(200, (int) (Math.random() * 700));
+        }
+    }
     public void run() {
         while (true) {
             moveThings();
@@ -72,6 +78,11 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         // MOVE ASTEROIDS
         asteriod1.move();
         asteriod2.move();
+
+        for(int o=0; o<asteriods.length; o++){
+            asteriods[o].move();
+
+        }
 
         // OPTIONAL: your old "grow once when hit" crash effect
         crashing();
@@ -140,6 +151,9 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             // DRAW ASTRONAUT
             g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
             //make start button
+            for (int b = 0; b < asteriods.length; b++){
+                g.drawImage(asteriodPic, asteriods[b].xpos, asteriods[b].ypos, asteriods[b].width, asteriods[b].height, null);
+            }
         }
         g.setColor(Color.green);
         g.fillRect(100,100,100,100);
