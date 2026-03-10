@@ -5,9 +5,6 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-//step1 : add mouse motion listener
-// step1: implement key listener
 public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
     final int WIDTH = 1000;
@@ -21,7 +18,6 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public Image astroPic;
     public Image backgroundPic;
 
-    // ADD THESE BACK
     public Image asteriodPic;
     public Asteriod asteriod1;
     public Asteriod asteriod2;
@@ -42,19 +38,14 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
         astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png");
         backgroundPic = Toolkit.getDefaultToolkit().getImage("Stars.jpg");
-
-        // ADD THIS BACK
         asteriodPic = Toolkit.getDefaultToolkit().getImage("Asteroid_Vesta-1.jpeg");
 
         astro = new Astronaut(100, 100);
 
-        // ADD THESE BACK (positions can be whatever you want)
         asteriod1 = new Asteriod(300, 200);
         asteriod2 = new Asteriod(100, 500);
 
-        // optional: flip direction like your old code did
         asteriod1.dx = -asteriod1.dx;
-
 
         startHitbox = new Rectangle(100, 100, 100, 100);
 
@@ -64,6 +55,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
             asteriods[i] = new Asteriod(200, (int) (Math.random() * 700));
         }
     }
+
     public void run() {
         while (true) {
             moveThings();
@@ -75,20 +67,17 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     public void moveThings() {
         if (startGame == true)
             astro.move();
-        // MOVE ASTEROIDS
+
         asteriod1.move();
         asteriod2.move();
 
-        for(int o=0; o<asteriods.length; o++){
+        for (int o = 0; o < asteriods.length; o++) {
             asteriods[o].move();
-
         }
 
-        // OPTIONAL: your old "grow once when hit" crash effect
         crashing();
     }
 
-    // OPTIONAL crash logic (matches the style you had before)
     public void crashing() {
         if (asteriod1.hitbox.intersects(asteriod2.hitbox) && asteriod2.isCrashing == false) {
             System.out.println("ASTERIOD CRASH!");
@@ -120,9 +109,8 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         canvas.setBounds(0, 0, WIDTH, HEIGHT);
         canvas.setIgnoreRepaint(true);
 
-        canvas.addKeyListener(this);    // step 2
-        canvas.addMouseListener(this); // step 2 add to canvas
-
+        canvas.addKeyListener(this);
+        canvas.addMouseListener(this);
 
         panel.add(canvas);
 
@@ -144,25 +132,23 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         if (startGame == true) {
             g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
 
-            // DRAW ASTEROIDS
             g.drawImage(asteriodPic, asteriod1.xpos, asteriod1.ypos, asteriod1.width, asteriod1.height, null);
             g.drawImage(asteriodPic, asteriod2.xpos, asteriod2.ypos, asteriod2.width, asteriod2.height, null);
 
-            // DRAW ASTRONAUT
             g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
-            //make start button
-            for (int b = 0; b < asteriods.length; b++){
+
+            for (int b = 0; b < asteriods.length; b++) {
                 g.drawImage(asteriodPic, asteriods[b].xpos, asteriods[b].ypos, asteriods[b].width, asteriods[b].height, null);
             }
         }
+
         g.setColor(Color.green);
-        g.fillRect(100,100,100,100);
+        g.fillRect(100, 100, 100, 100);
 
         g.dispose();
         bufferStrategy.show();
     }
 
-    // step 3: add methods
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -171,7 +157,6 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         if (key == KeyEvent.VK_DOWN) astro.isSouth = true;
         if (key == KeyEvent.VK_RIGHT) astro.isEast = true;
         if (key == KeyEvent.VK_LEFT) astro.isWest = true;
-
     }
 
     @Override
@@ -185,45 +170,33 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    // step 3: add methods
-
+    public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
         System.out.println(e.getPoint());
-        Rectangle pointHitbox = new Rectangle(e.getX(), e.getY(),1,1);
-        if(startHitbox.intersects(pointHitbox)){
+        Rectangle pointHitbox = new Rectangle(e.getX(), e.getY(), 1, 1);
+
+        if (startHitbox.intersects(pointHitbox)) {
             System.out.println("start game");
             startGame = true;
-
         }
+
         astro.xpos = e.getX() - astro.width / 2;
         astro.ypos = e.getY() - astro.height / 2;
-
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
     public void mouseEntered(MouseEvent e) {
         System.out.println("mouse entered the screen");
-
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
+    public void mouseExited(MouseEvent e) {}
 }
