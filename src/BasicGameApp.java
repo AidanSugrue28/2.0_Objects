@@ -46,6 +46,7 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
         asteriod2 = new Asteriod(100, 500);
 
         asteriod1.dx = -asteriod1.dx;
+        asteriod1.dy = -asteriod1.dy;
 
         startHitbox = new Rectangle(100, 100, 100, 100);
 
@@ -88,6 +89,12 @@ public class BasicGameApp implements Runnable, KeyListener, MouseListener {
 
         if (!asteriod1.hitbox.intersects(asteriod2.hitbox)) {
             asteriod2.isCrashing = false;
+        }
+
+        for (int x=0; x< asteriods.length; x++){
+            if (asteriods[x].hitbox.intersects(astro.hitbox)){
+                System.out.println("astro crash");
+            }
         }
     }
 
